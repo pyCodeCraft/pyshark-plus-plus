@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyshark-plus-plus"
+version = "0.0.1rc0"
+authors = [
+  {name = "Andreu Castillo", email = ""},
+]
+description = "Network utilities"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+
+]
+
+[project.urls]
+homepage = "https://github.com/pyCodeCraft/pyshark-plus-plus"
+
+[project.optional-dependencies]
+dev = [
+
+]
