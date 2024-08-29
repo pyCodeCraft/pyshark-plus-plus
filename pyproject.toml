@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyshark-plus-plus"
+version = "1.0.0rc0"
+authors = [
+  {name = "Andreu Castillo", email = "python.code.craft@gmail.com"},
+]
+description = "Network utilities"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+
+]
+
+[project.urls]
+homepage = "https://github.com/pyCodeCraft/pyshark-plus-plus"
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.3.2",
+  "pymodbus>=3.7.0",
+]
+
+[tool.isort]
+multi_line_output = 3
