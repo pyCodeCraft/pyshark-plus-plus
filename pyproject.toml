@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyshark-plus-plus"
-version = "0.0.1rc0"
+version = "1.0.0rc0"
 authors = [
   {name = "Andreu Castillo", email = "python.code.craft@gmail.com"},
 ]
@@ -19,6 +19,10 @@ dependencies = [
 homepage = "https://github.com/pyCodeCraft/pyshark-plus-plus"
 
 [project.optional-dependencies]
-dev = [
-
+test = [
+  "pytest>=8.3.2",
+  "pymodbus>=3.7.0",
 ]
+
+[tool.isort]
+multi_line_output = 3

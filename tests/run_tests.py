@@ -14,13 +14,13 @@ if __name__ == '__main__':
         "-k", "test_",
 
         # HTML report
-        "--html=./tests/HTML/report.html",
+        # "--html=./tests/HTML/report.html",
 
         # Coverage report
-        "--cov-report=term",
-        "--cov-report=html:./tests/COVERAGE",
-        "--cov-config=./tests/.coveragerc",
-        "--cov=./",
+        # "--cov-report=term",
+        # "--cov-report=html:./tests/COVERAGE",
+        # "--cov-config=./tests/.coveragerc",
+        # "--cov=./",
 
         # Extra configuration
         "--disable-warnings",
