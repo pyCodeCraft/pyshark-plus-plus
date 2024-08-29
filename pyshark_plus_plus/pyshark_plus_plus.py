@@ -10,13 +10,13 @@ class TsharkWrapper:
     def __init__(
             self,
             file_path: str = None,
-            interface='1',
-            capture_filter=None,
-            tshark_path="C:/Program Files/Wireshark/tshark.exe",
+            interface: str = '1',
+            capture_filter: str = None,
+            tshark_path: str = "C:/Program Files/Wireshark/tshark.exe",
     ):
 
-        if file_path and not os.path.exists(file_path):
-            raise Exception(f"Path {file_path} does not exist")
+        # if file_path and not os.path.exists(file_path):
+        #     raise Exception(f"Path {file_path} does not exist")
 
         self.file_path = file_path
         self.interface = interface

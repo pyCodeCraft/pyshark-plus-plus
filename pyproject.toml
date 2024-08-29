@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pyshark-plus-plus"
 version = "0.0.1rc0"
 authors = [
-  {name = "Andreu Castillo", email = ""},
+  {name = "Andreu Castillo", email = "python.code.craft@gmail.com"},
 ]
 description = "Network utilities"
 readme = "README.md"

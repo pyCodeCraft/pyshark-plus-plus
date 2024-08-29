@@ -1,2 +1,2 @@
 # pyshark-plus-plus
-Low level wrapper for thsark
+Low level wrapper for tshark
