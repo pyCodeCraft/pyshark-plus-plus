@@ -33,6 +33,7 @@ def run_modbus_server():
     print("Starting Modbus server on localhost:502...")
     StartTcpServer(context=context, identity=identity, address=("127.0.0.1", 502))
 
+
 # Function to send Modbus requests to the server
 def send_modbus_requests():
     client = ModbusTcpClient('127.0.0.1', port=502)
@@ -63,7 +64,8 @@ time.sleep(2)
 # Set up the TsharkWrapper with the appropriate interface and filter
 wrapper = TsharkWrapper(
     file_path="capture_localhost_modbus.pcap",
-    interface="8",  # Assuming '1' corresponds to the localhost interface (use list_interfaces() to verify)
+    # interface_number=9,  # Assuming '9' corresponds to the localhost interface (use list_interfaces() to verify)
+    interface_name="\\Device\\NPF_Loopback",
     # capture_filter="tcp port 502"  # Capture only Modbus TCP traffic
 )
 wrapper.list_interfaces()
