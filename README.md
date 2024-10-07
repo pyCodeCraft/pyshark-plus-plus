@@ -12,15 +12,15 @@
 
 ## Installation
 
-1. Clone the repository:
+1. From pip:
+    ```bash
+    pip install pyshark-plus-plus
+    ```
+
+2. From gGitHub repository:
     ```bash
     git clone https://github.com/your-username/pyshark-plus-plus.git
     cd pyshark-plus-plus
-    ```
-
-2. Install dependencies:
-    ```bash
-    pip install -r requirements.txt
     ```
 
 3. Ensure `tshark` is installed on your system. You can download it from [Wireshark's website](https://www.wireshark.org/).
