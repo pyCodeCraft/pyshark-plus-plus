@@ -4,9 +4,13 @@ import re
 import subprocess
 import threading
 import time
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from .statistics import parse_io_statistics
+
+InterfaceNumberType = Union[str, int, List[str], List[int]]
+InterfaceNameType = Union[str, List[str]]
+InterfaceDescriptionType = Union[str, List[str]]
 
 
 class TsharkWrapper:
@@ -14,9 +18,9 @@ class TsharkWrapper:
     def __init__(
             self,
             file_path: str = None,
-            interface_number: str | int = "any",
-            interface_name: str = None,
-            interface_description: str = None,
+            interface_number: InterfaceNumberType = None,
+            interface_name: InterfaceNameType = None,
+            interface_description: InterfaceDescriptionType = None,
             capture_filter: str = None,
             tshark_path: str = "C:/Program Files/Wireshark/tshark.exe",
     ):
@@ -25,24 +29,48 @@ class TsharkWrapper:
         #     raise Exception(f"Path {file_path} does not exist")
 
         self.file_path = file_path
-        self.interface_number = interface_number
         self.capture_filter = capture_filter
         self.tshark_path = tshark_path
 
         self._event = threading.Event()
         self._process_capture = None
 
-        self._thread: threading.Thread
+        self._thread = threading.Thread(target=self.start_capture)
+
+        self.interface_number = self._get_interface_number(interface_number, interface_name, interface_description)
+
+    def _get_interface_number(
+            self,
+            interface_number: InterfaceNumberType,
+            interface_name: InterfaceNameType,
+            interface_description: InterfaceDescriptionType,
+    ) -> List[str]:
+
+        interfaces = []
+
+        if interface_number is not None:
+            if isinstance(interface_number, list):
+                interfaces.extend(str(i) for i in interface_number)
+            else:
+                interfaces.append(str(interface_number))
 
         if interface_name is not None:
-            self.interface_number = self.get_interface_number_by_name(interface_name)
+            if isinstance(interface_name, list):
+                interfaces.extend(self.get_interface_number_by_name(name) for name in interface_name)
+            else:
+                interfaces.append(self.get_interface_number_by_name(interface_name))
+
         if interface_description is not None:
-            self.interface_number = self.get_interface_number_by_description(interface_description)
+            if isinstance(interface_description, list):
+                interfaces.extend(self.get_interface_number_by_description(description) for description in interface_description)
+            else:
+                interfaces.append(self.get_interface_number_by_description(interface_description))
+
+        return interfaces
 
     def start_thread(self):
 
         self._event.clear()
-        self._thread = threading.Thread(target=self.start_capture)
         self._thread.start()
         time.sleep(0.1)
 
@@ -114,7 +142,7 @@ class TsharkWrapper:
             if interface[field_name] == field_value:
                 return interface["number"]
 
-        raise Exception(f"Interface {self.interface_number} not found")
+        raise Exception(f"Field {field_name} with value {field_value} not found")
 
     def get_interface_number_by_name(self, interface_name: str) -> int:
 
@@ -137,7 +165,8 @@ class TsharkWrapper:
         # else:
         #     cmd.extend(["-i", str(self.interface)])
 
-        cmd.extend(["-i", str(self.interface_number)])
+        cmd.extend(["-i"])
+        cmd.extend(str(i) for i in self.interface_number)
 
         if self.file_path:
             cmd.extend(["-w", self.file_path])
